@@ -1,8 +1,8 @@
-
 import os
 import telebot
-from moviepy.editor import VideoFileClip, AudioFileClip
 from flask import Flask, request
+from audiocraft_app.musicgen import generate_music
+from moviepy.editor import VideoFileClip, AudioFileClip
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -10,15 +10,17 @@ app = Flask(__name__)
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "أرسل لي نصًا أو رسالة صوتية وسأحولها إلى فيديو!")
+    bot.reply_to(message, "أرسل لي نصاً وسأحوّله إلى فيديو مع موسيقى!")
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     text = message.text
-    bot.reply_to(message, "جاري إنشاء الفيديو...")
+    bot.reply_to(message, "جاري إنشاء الموسيقى والفيديو...")
+
+    music_path = "static/generated_music.wav"
+    generate_music(text, output_path="static/generated_music")
 
     video_path = "static/sample_video.mp4"
-    music_path = "static/sample_music.mp3"
     final_path = "static/final_output.mp4"
 
     video = VideoFileClip(video_path)
