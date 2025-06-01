@@ -4,4 +4,5 @@ moviepy==1.0.3
 git+https://github.com/facebookresearch/audiocraft
 torch
 torchaudio
+spacy>=3.8.0
 
