@@ -1,1 +1,2 @@
-# telegram_video_bot
+# Telegram Video Bot
+تحويل النصوص إلى فيديو مع موسيقى تلقائيًا.
