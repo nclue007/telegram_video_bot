@@ -1,0 +1,8 @@
+from audiocraft.models import MusicGen
+from audiocraft.data.audio import audio_write
+
+def generate_music(prompt, output_path="static/generated_music"):
+    model = MusicGen.get_pretrained('facebook/musicgen-small')
+    model.set_generation_params(duration=10)
+    wav = model.generate([prompt])
+    audio_write(output_path, wav[0].cpu(), model.sample_rate, strategy="loudness")
